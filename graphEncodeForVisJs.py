@@ -41,14 +41,14 @@ def CreateJsHtmlFile (matrix, filename):
 
     nodes = '\n'
     for i in range(n):
-        nodes += '{id: '+str(i)+', label: \'Node '+str(i)+'\'},\n'
+        nodes += '{{id: {0}, label: "Node {0}"}},\n'.format(str(i))
 
     edges = '\n'
     for i in range(n):
         for j in range(n):
             if matrix[i][j] != '0':
-                edges += '{from: '+str(i)+', to: '+str(j)+', label: \''\
-                         +matrix[i][j]+'\', arrows:\'to\', font: {align: \'top\'}},\n'
+                edges += '{{from: {}, to: {}, label: "{}", arrows:"to", font: {{align: "top"}}}},\n'\
+                         .format(str(i), str(j), matrix[i][j])
 
     sourceCode = _part1Str+nodes+_part2Str+edges+_part3Str
 
