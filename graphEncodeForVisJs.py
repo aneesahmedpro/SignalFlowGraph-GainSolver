@@ -66,5 +66,9 @@ def RenderSignalFlowGraph (matrix):
 
 
 if __name__ == '__main__':
-    CreateJsHtmlFile([['0', 'a', '0', '0'], ['0', '0', 'b', '0'], ['0', 'd', '0', 'c'], ['0', '0', '0', '0']], 'temp.html')
+    m = [ ['0', 'a', '0', '0'],
+          ['0', '0', 'b', '0'],
+          ['0', 'd', '0', 'c'],
+          ['0', '0', '0', '0'], ]
+    CreateJsHtmlFile(m, 'temp.html')
     OpenInWebBrowser('temp.html')

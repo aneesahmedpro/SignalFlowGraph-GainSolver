@@ -17,4 +17,8 @@ def SolveFinalGain (matrix):
 
 
 if __name__ == '__main__':
-    print(SolveFinalGain([['0', 'a', '0', '0'], ['0', '0', 'b', '0'], ['0', 'd', '0', 'c'], ['0', '0', '0', '0']]))
+    m = [ ['0', 'a', '0', '0'],
+          ['0', '0', 'b', '0'],
+          ['0', 'd', '0', 'c'],
+          ['0', '0', '0', '0'], ]
+    print(SolveFinalGain(m))
