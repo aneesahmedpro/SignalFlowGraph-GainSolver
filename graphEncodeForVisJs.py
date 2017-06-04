@@ -47,7 +47,7 @@ def CreateJsHtmlFile (matrix, filename):
     for i in range(n):
         for j in range(n):
             if matrix[i][j] != '0':
-                edges += '{{from: {}, to: {}, label: "{}", arrows:"to", font: {{align: "top"}}}},\n'\
+                edges += '{{from: {}, to: {}, label: "{}", arrows:"to"}},\n'\
                          .format(str(i), str(j), matrix[i][j])
 
     sourceCode = _part1Str+nodes+_part2Str+edges+_part3Str
