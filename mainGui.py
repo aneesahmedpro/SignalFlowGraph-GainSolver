@@ -4,7 +4,7 @@
 import tkinter as tk
 
 from graphSolveGain import SolveFinalGain
-from graphEncodeForVisJs import RenderSignalFlowGraph
+from graphRender import RenderSignalFlowGraph
 
 
 maxNoOfNodes = 20
