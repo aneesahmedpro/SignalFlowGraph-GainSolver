@@ -5,13 +5,17 @@ import webbrowser
 import os
 
 
+_outputFile = '/tmp/SignalFlowGraphGainSolverOutput.html'
+
 _part1Str = ''
 _part2Str = ''
 _part3Str = ''
+_part4Str = ''
 
 _part1File = open('part1.txt')
 _part2File = open('part2.txt')
 _part3File = open('part3.txt')
+_part4File = open('part4.txt')
 
 while True:
     line = _part1File.readline()
@@ -31,9 +35,16 @@ while True:
         break
     _part3Str += line
 
+while True:
+    line = _part4File.readline()
+    if line == '':
+        break
+    _part4Str += line
+
 _part1File.close()
 _part2File.close()
 _part3File.close()
+_part4File.close()
 
 
 def CreateJsHtmlFile (matrix, filename):
@@ -50,7 +61,9 @@ def CreateJsHtmlFile (matrix, filename):
                 edges += '{{from: {}, to: {}, label: "{}", arrows:"to"}},\n'\
                          .format(str(i), str(j), matrix[i][j])
 
-    sourceCode = _part1Str+nodes+_part2Str+edges+_part3Str
+    part1StrFilled = _part1Str.format(os.getcwd())
+    part3StrFilled = _part3Str.format(nodes, edges)
+    sourceCode = part1StrFilled+_part2Str+part3StrFilled+_part4Str
 
     outputFile = open(filename, 'w')
     outputFile.write(sourceCode)
@@ -61,8 +74,8 @@ def OpenInWebBrowser (filename):
 
 
 def RenderSignalFlowGraph (matrix):
-    CreateJsHtmlFile(matrix, 'temp.html')
-    OpenInWebBrowser('temp.html')
+    CreateJsHtmlFile(matrix, _outputFile)
+    OpenInWebBrowser(_outputFile)
 
 
 if __name__ == '__main__':
@@ -70,5 +83,5 @@ if __name__ == '__main__':
           ['0', '0', 'b', '0'],
           ['0', 'd', '0', 'c'],
           ['0', '0', '0', '0'], ]
-    CreateJsHtmlFile(m, 'temp.html')
-    OpenInWebBrowser('temp.html')
+    CreateJsHtmlFile(m, _outputFile)
+    OpenInWebBrowser(_outputFile)
