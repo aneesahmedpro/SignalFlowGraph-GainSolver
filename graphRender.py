@@ -3,9 +3,10 @@
 
 import webbrowser
 import os
+import tempfile
 
 
-_outputFile = '/tmp/SignalFlowGraphGainSolverOutput.html'
+_outputFilename = tempfile.gettempdir()+'/SignalFlowGraphGainSolverOutput.html'
 
 _part1Str = ''
 _part2Str = ''
@@ -74,8 +75,8 @@ def OpenInWebBrowser (filename):
 
 
 def RenderSignalFlowGraph (matrix):
-    CreateJsHtmlFile(matrix, _outputFile)
-    OpenInWebBrowser(_outputFile)
+    CreateJsHtmlFile(matrix, _outputFilename)
+    OpenInWebBrowser(_outputFilename)
 
 
 if __name__ == '__main__':
@@ -83,5 +84,5 @@ if __name__ == '__main__':
           ['0', '0', 'b', '0'],
           ['0', 'd', '0', 'c'],
           ['0', '0', '0', '0'], ]
-    CreateJsHtmlFile(m, _outputFile)
-    OpenInWebBrowser(_outputFile)
+    CreateJsHtmlFile(m, _outputFilename)
+    OpenInWebBrowser(_outputFilename)
