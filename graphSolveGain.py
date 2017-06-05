@@ -13,7 +13,8 @@ def SolveAllGains (matrix):
 
 def SolveFinalGain (matrix):
     n = len(matrix)
-    return SolveAllGains(matrix)[0, n-1]
+    finalGain = SolveAllGains(matrix)[0, n-1]
+    return finalGain, sp.pretty(finalGain, use_unicode=True)
 
 
 if __name__ == '__main__':
@@ -21,4 +22,4 @@ if __name__ == '__main__':
           ['0', '0', 'b', '0'],
           ['0', 'd', '0', 'c'],
           ['0', '0', '0', '0'], ]
-    print(SolveFinalGain(m))
+    print(SolveFinalGain(m)[1])

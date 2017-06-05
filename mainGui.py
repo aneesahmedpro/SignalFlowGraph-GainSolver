@@ -122,8 +122,8 @@ class App (tk.Frame):
     def SolveGraph (self):
         matrix = self.ExtractMatrix()
         matrix = self.PreprocessMatrix(matrix)
-        result = SolveFinalGain(matrix)
-        print(result)
+        resultRaw, resultPretty = SolveFinalGain(matrix)
+        print(resultPretty)
 
     def ShowHelp (self):
         pass
