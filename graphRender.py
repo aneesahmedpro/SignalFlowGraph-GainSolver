@@ -18,28 +18,16 @@ _part2File = open('part2.txt')
 _part3File = open('part3.txt')
 _part4File = open('part4.txt')
 
-while True:
-    line = _part1File.readline()
-    if line == '':
-        break
+for line in _part1File:
     _part1Str += line
 
-while True:
-    line = _part2File.readline()
-    if line == '':
-        break
+for line in _part2File:
     _part2Str += line
 
-while True:
-    line = _part3File.readline()
-    if line == '':
-        break
+for line in _part3File:
     _part3Str += line
 
-while True:
-    line = _part4File.readline()
-    if line == '':
-        break
+for line in _part4File:
     _part4Str += line
 
 _part1File.close()

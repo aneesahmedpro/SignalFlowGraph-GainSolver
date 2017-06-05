@@ -2,6 +2,12 @@
 
 <body>
 
+<p id="instructions">
+    <br>
+    You can manipulate the diagram using your Mouse.
+    Use ScrollWheel to zoom. Click and drag the nodes to move them.
+</p>
+
 <div id="mynetwork"></div>
 
 <script type="text/javascript">
