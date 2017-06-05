@@ -8,6 +8,9 @@ import tempfile
 
 _outputFilename = tempfile.gettempdir()+'/SignalFlowGraphGainSolverOutput.html'
 
+_nodeStr = '{{id: {0}, label: "Node {0}", font: {{color: "black"}}}},\n'
+_edgeStr = '{{from: {}, to: {}, label: "{}", arrows: "to", font: {{color: "black", align: "{}"}}}},\n'
+
 _part1Str = ''
 _part2Str = ''
 _part3Str = ''
@@ -41,14 +44,15 @@ def CreateJsHtmlFile (matrix, filename):
 
     nodes = '\n'
     for i in range(n):
-        nodes += '{{id: {0}, label: "Node {0}"}},\n'.format(str(i))
+        nodes += _nodeStr.format(str(i))
 
     edges = '\n'
     for i in range(n):
         for j in range(n):
             if matrix[i][j] != '0':
-                edges += '{{from: {}, to: {}, label: "{}", arrows:"to"}},\n'\
-                         .format(str(i), str(j), matrix[i][j])
+                lengthyEnough = len(matrix[i][j]) > 2
+                align = 'middle' if lengthyEnough else 'horizontal'
+                edges += _edgeStr.format(str(i), str(j), matrix[i][j], align)
 
     part1StrFilled = _part1Str.format(os.getcwd())
     part3StrFilled = _part3Str.format(nodes, edges)
@@ -69,8 +73,8 @@ def RenderSignalFlowGraph (matrix):
 
 if __name__ == '__main__':
     m = [ ['0', 'a', '0', '0'],
-          ['0', '0', 'b', '0'],
-          ['0', 'd', '0', 'c'],
-          ['0', '0', '0', '0'], ]
+          ['sqrt(n)', '0', 'b', 'sigma'],
+          ['d2', 'd1', '0', 'c'],
+          ['0', '0', '0', 'phi'], ]
     CreateJsHtmlFile(m, _outputFilename)
     OpenInWebBrowser(_outputFilename)
