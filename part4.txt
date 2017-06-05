@@ -11,8 +11,8 @@
 
 <p id="credit">
     <br>
-    This webpage uses <a href='https://github.com/almende/vis'><strong>vis.js</strong></a> library.
-    Thanks to Almende B.V. and all Other Contributors for developing this awesome project!
+    <strong>This interactive diagram is being drawn using <a href='https://github.com/almende/vis'>vis.js</a> library.</strong>
+    Thanks to Almende B.V. and all Other Contributors for developing the awesome library!
 </p>
 
 </body>
