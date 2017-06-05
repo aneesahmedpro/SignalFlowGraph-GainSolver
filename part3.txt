@@ -2,13 +2,19 @@
 
 <body>
 
-<p id="instructions">
-    <br>
-    You can manipulate the diagram using your Mouse.
-    Use ScrollWheel to zoom. Click and drag the nodes to move them.
-</p>
+<div id="container">
+    <div id="instructions">
+        You can manipulate the diagram using your Mouse.
+        Use ScrollWheel to zoom. Click and drag the nodes to move them.
+    </div>
 
-<div id="mynetwork"></div>
+    <div id="mynetwork"></div>
+
+    <div id="credit">
+        <strong>This interactive diagram is being drawn using <a href='https://github.com/almende/vis'>vis.js</a> library.</strong>
+        Thanks to Almende B.V. and all Other Contributors for developing the awesome library!
+    </div>
+</div>
 
 <script type="text/javascript">
     // create an array with nodes
@@ -20,3 +26,4 @@
     var edges = new vis.DataSet([
 {}
     ]);
+

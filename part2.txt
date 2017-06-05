@@ -5,27 +5,32 @@
             margin: 0;
         }
 
-        #instructions {
+        #container {
             width: 100%;
-            height: 10%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #instructions {
             margin: 0;
             text-align: center;
             font-family: monospace;
+            padding: 1em;
         }
 
         #mynetwork {
-            width: 100%;
-            height: 80%;
-            border: 10px solid black;
+            border: 0.75em solid black;
             box-sizing: border-box;
             margin: 0;
+            flex-grow: 1;
         }
 
         #credit {
-            width: 100%;
-            height: 10%;
             margin: 0;
             text-align: center;
             font-family: monospace;
+            padding: 1em;
         }
     </style>

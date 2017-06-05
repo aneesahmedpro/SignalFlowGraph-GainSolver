@@ -6,14 +6,9 @@
     };
     var options = {};
     var network = new vis.Network(container, data, options);
-//    network.setSize(String(window.innerWidth)+'px', String(window.innerHeight));
+    network.setSize(container.clientWidth+'px', container.clientHeight+'px')
+    network.fit()
 </script>
-
-<p id="credit">
-    <br>
-    <strong>This interactive diagram is being drawn using <a href='https://github.com/almende/vis'>vis.js</a> library.</strong>
-    Thanks to Almende B.V. and all Other Contributors for developing the awesome library!
-</p>
 
 </body>
 </html>
