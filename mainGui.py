@@ -10,9 +10,11 @@ from graphRender import RenderSignalFlowGraph
 
 maxNoOfNodes = 20
 
-screenWidth = 0
-screenHeight = 0
-defaultWindowBgColour = 0
+screenWidth = None
+screenHeight = None
+defaultWindowBgColour = None
+defaultFont = None
+monoFont = None
 
 
 class App (tk.Frame):
@@ -36,30 +38,42 @@ class App (tk.Frame):
         frameControls.grid(row=0, column=1, sticky='ns', padx=10, pady=10)
 
         self.noOfNodesTkStr = tk.StringVar()
-        options = [str(i)+' Nodes' for i in range(1, maxNoOfNodes+1)]
-        self.optionMenu = tk.OptionMenu(frameControls, self.noOfNodesTkStr, *options)
-        self.optionMenu.grid(sticky='ew')
+        tempOptions = [str(i)+' Nodes' for i in range(1, maxNoOfNodes+1)]
+        self.noOfNodesSelector = tk.OptionMenu(frameControls, self.noOfNodesTkStr, *tempOptions)
+        self.noOfNodesSelector.config(font=defaultFont)
+        self.noOfNodesSelector.grid(sticky='ew')
         self.noOfNodesTkStr.set('Click here to select the Number of Nodes')
-        optionMenuCallback = lambda internalName, index, triggerMode: self.RedrawMatrix()
-        self.noOfNodesTkStr.trace('w', optionMenuCallback)
+        noOfNodesSelectorCallback = lambda internalName, index, triggerMode: self.RedrawMatrix()
+        self.noOfNodesTkStr.trace('w', noOfNodesSelectorCallback)
 
         tk.Label(frameControls).grid(pady=10)
 
-        self.buttonDraw = tk.Button(frameControls, text='Draw', command=self.DrawGraph)
-        self.buttonSolve = tk.Button(frameControls, text='Solve', command=self.SolveGraph)
-        self.buttonHelp = tk.Button(frameControls, text='Help', command=self.ShowHelp)
+        self.buttonDraw = tk.Button(frameControls, text='Draw', command=self.DrawGraph, font=defaultFont)
+        self.buttonSolve = tk.Button(frameControls, text='Solve', command=self.SolveGraph, font=defaultFont)
+        self.buttonHelp = tk.Button(frameControls, text='Help', command=self.ShowHelp, font=defaultFont)
 
         self.buttonDraw.grid(sticky='ew')
         self.buttonSolve.grid(sticky='ew')
         self.buttonHelp.grid(sticky='ew')
 
+        tk.Label(frameControls).grid(pady=10)
+
+        self.fontSizeTkStr = tk.StringVar()
+        tempOptions = [str(i)+' pt' for i in range(6, 20, 2)]
+        self.fontSizeSelector = tk.OptionMenu(frameControls, self.fontSizeTkStr, *tempOptions)
+        self.fontSizeSelector.config(font=defaultFont)
+        self.fontSizeSelector.grid(sticky='ew')
+        self.fontSizeTkStr.set('Click here\n to select\n font size')
+        fontSizeSelectorCallback = lambda internalName, index, triggerMode: self.ChangeFontSize()
+        self.fontSizeTkStr.trace('w', fontSizeSelectorCallback)
+
         self.rowLabels = []
         self.columnLabels = []
         for i in range(maxNoOfNodes):
-            self.rowLabels.append(tk.Label(frameMatrix, text=str(i), relief=tk.SUNKEN, width=3))
+            self.rowLabels.append(tk.Label(frameMatrix, text=str(i), relief=tk.SUNKEN, width=3, font=defaultFont))
             self.rowLabels[i].grid(row=i+1, column=0, sticky='nsew', padx=4, pady=4)
             self.rowLabels[i].grid_remove()
-            self.columnLabels.append(tk.Label(frameMatrix, text=str(i), relief=tk.SUNKEN, width=3))
+            self.columnLabels.append(tk.Label(frameMatrix, text=str(i), relief=tk.SUNKEN, width=3, font=defaultFont))
             self.columnLabels[i].grid(row=0, column=i+1, sticky='nsew', padx=4, pady=4)
             self.columnLabels[i].grid_remove()
 
@@ -67,13 +81,11 @@ class App (tk.Frame):
         for i in range(maxNoOfNodes):
             self.textBoxes.append([])
             for j in range(maxNoOfNodes):
-                self.textBoxes[i].append(tk.Entry(frameMatrix, width=3))
+                self.textBoxes[i].append(tk.Entry(frameMatrix, width=3, font=defaultFont))
                 self.textBoxes[i][j].grid(row=i+1, column=j+1, sticky='nsew', padx=4, pady=4)
                 self.textBoxes[i][j].grid_remove()
                 self.textBoxes[i][j].bind('<FocusIn>', self.HighlightNodes)
                 self.textBoxes[i][j].bind('<FocusOut>', self.UnhighlightNodes)
-
-        self.monoFont = tkFont.Font(self, font='monospace')
 
         self.update_idletasks()
         CenterifyWindow(self.root)
@@ -149,8 +161,8 @@ class App (tk.Frame):
         popup.grid_rowconfigure(0, weight=1)
         popup.grid_rowconfigure(1, weight=1)
 
-        labelRaw = tk.Label(popup, text=resultRaw, bg='white', font=self.monoFont)
-        labelPretty = tk.Label(popup, text=resultPretty, bg='white', font=self.monoFont)
+        labelRaw = tk.Label(popup, text=resultRaw, bg='white', font=monoFont)
+        labelPretty = tk.Label(popup, text=resultPretty, bg='white', font=monoFont)
 
         labelRaw.grid(sticky='ew', padx=10, pady=10)
         labelPretty.grid(sticky='ew', padx=10, pady=10)
@@ -172,6 +184,11 @@ class App (tk.Frame):
     def ShowHelp (self):
         pass
 
+    def ChangeFontSize (self):
+        fontSize = int(self.fontSizeTkStr.get().split()[0])
+        defaultFont['size'] = fontSize
+        monoFont['size'] = fontSize
+
 
 def ParseWindowGeometry (string):
     temp1 = string.split('+')
@@ -192,6 +209,9 @@ if __name__ == '__main__':
     screenHeight = root.winfo_screenheight()
     tempLabel = tk.Label(root)
     defaultWindowBgColour = tempLabel['background']
+    defaultFont = tkFont.Font(font=tempLabel['font'])
+    monoFont = tkFont.Font(font=defaultFont)
+    monoFont['family'] = 'monospace'
 
     root.title('Signal Flow Graph: Gain Solver')
     root.grid()
