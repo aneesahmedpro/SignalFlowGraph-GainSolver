@@ -191,6 +191,7 @@ if __name__ == '__main__':
     tempLabel = tk.Label(root)
     defaultWindowBgColour = tempLabel['background']
 
+    root.title('Signal Flow Graph: Gain Solver')
     root.grid()
     root.grid_columnconfigure(0, weight=1)
     root.grid_rowconfigure(0, weight=1)
