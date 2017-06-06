@@ -80,6 +80,7 @@ class App (tk.Frame):
 
     def RedrawMatrix (self):
         self.noOfNodes = int(self.noOfNodesTkStr.get().split()[0])
+        self.grid_remove()
 
         for i in range(maxNoOfNodes):
             if i < self.noOfNodes:
@@ -96,6 +97,7 @@ class App (tk.Frame):
                 else:
                     self.textBoxes[i][j].grid_remove()
 
+        self.grid()
         self.update_idletasks()
         CenterifyWindow(self.root)
 
