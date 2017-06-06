@@ -35,11 +35,13 @@ class App (tk.Frame):
 
         frameControls.grid(row=0, column=1, sticky='ns', padx=10, pady=10)
 
-        self.noOfNodesStr = tk.StringVar()
+        self.noOfNodesTkStr = tk.StringVar()
         options = [str(i)+' Nodes' for i in range(1, maxNoOfNodes+1)]
-        self.optionMenu = tk.OptionMenu(frameControls, self.noOfNodesStr, *options, command=self.UpdateMatrix)
-        self.noOfNodesStr.set('Click here to select\n the Number of Nodes')
+        self.optionMenu = tk.OptionMenu(frameControls, self.noOfNodesTkStr, *options)
         self.optionMenu.grid(sticky='ew')
+        self.noOfNodesTkStr.set('Click here to select\n the Number of Nodes')
+        optionMenuCallback = lambda internalName, index, triggerMode: self.RedrawMatrix()
+        self.noOfNodesTkStr.trace('w', optionMenuCallback)
 
         tk.Label(frameControls).grid(pady=10)
 
@@ -76,8 +78,8 @@ class App (tk.Frame):
         self.update_idletasks()
         CenterifyWindow(self.root)
 
-    def UpdateMatrix (self, value):
-        self.noOfNodes = int(value.split()[0])
+    def RedrawMatrix (self):
+        self.noOfNodes = int(self.noOfNodesTkStr.get().split()[0])
 
         for i in range(maxNoOfNodes):
             if i < self.noOfNodes:
