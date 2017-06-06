@@ -12,6 +12,7 @@ maxNoOfNodes = 20
 
 screenWidth = 0
 screenHeight = 0
+defaultWindowBgColour = 0
 
 
 class App (tk.Frame):
@@ -70,8 +71,6 @@ class App (tk.Frame):
                 self.textBoxes[i][j].bind('<FocusIn>', self.HighlightNodes)
                 self.textBoxes[i][j].bind('<FocusOut>', self.UnhighlightNodes)
 
-        self.defaultBgColour = self.rowLabels[0].config()['background'][4]
-
         self.monoFont = tkFont.Font(self, font='monospace')
 
         self.update_idletasks()
@@ -109,8 +108,8 @@ class App (tk.Frame):
         for i in range(self.noOfNodes):
             for j in range(self.noOfNodes):
                 if self.textBoxes[i][j] == event.widget:
-                    self.rowLabels[i].config(bg=self.defaultBgColour)
-                    self.columnLabels[j].config(bg=self.defaultBgColour)
+                    self.rowLabels[i].config(bg=defaultWindowBgColour)
+                    self.columnLabels[j].config(bg=defaultWindowBgColour)
 
     def ExtractMatrix (self):
         matrix = []
@@ -184,8 +183,12 @@ def CenterifyWindow (toplevelWindow):
 
 if __name__ == '__main__':
     root = tk.Tk()
+
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
+    tempLabel = tk.Label(root)
+    defaultWindowBgColour = tempLabel['background']
+
     root.grid()
     root.grid_columnconfigure(0, weight=1)
     root.grid_rowconfigure(0, weight=1)
