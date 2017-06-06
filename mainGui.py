@@ -2,7 +2,6 @@
 
 
 import tkinter as tk
-import tkinter.messagebox as tkMsgBox
 import tkinter.font as tkFont
 
 from graphSolveGain import SolveFinalGain
@@ -11,16 +10,19 @@ from graphRender import RenderSignalFlowGraph
 
 maxNoOfNodes = 20
 
+screenWidth = 0
+screenHeight = 0
+
 
 class App (tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
+    def __init__(self, root=None):
+        super().__init__(root)
+
+        self.root = root
 
         self.grid(sticky='nsew')
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
-
-        self.option_add('*Dialog.msg.font', 'monospace 15')
 
         frameMatrix = tk.Frame(self)
         frameControls = tk.Frame(self)
@@ -70,6 +72,11 @@ class App (tk.Frame):
 
         self.defaultBgColour = self.rowLabels[0].config()['background'][4]
 
+        self.monoFont = tkFont.Font(self, font='monospace')
+
+        self.update_idletasks()
+        CenterifyWindow(self.root)
+
     def UpdateMatrix (self, value):
         self.noOfNodes = int(value.split()[0])
 
@@ -87,6 +94,9 @@ class App (tk.Frame):
                     self.textBoxes[i][j].grid()
                 else:
                     self.textBoxes[i][j].grid_remove()
+
+        self.update_idletasks()
+        CenterifyWindow(self.root)
 
     def HighlightNodes (self, event):
         for i in range(self.noOfNodes):
@@ -127,15 +137,55 @@ class App (tk.Frame):
         matrix = self.ExtractMatrix()
         matrix = self.PreprocessMatrix(matrix)
         resultRaw, resultPretty = SolveFinalGain(matrix)
-        tkMsgBox.showinfo('Final Gain', resultPretty)
+        self.ShowSolved(resultRaw, resultPretty)
+
+    def ShowSolved (self, resultRaw, resultPretty):
+        popup = tk.Toplevel(self)
+        popup.title('Final Gain')
+        popup.grid_columnconfigure(0, weight=1)
+        popup.grid_rowconfigure(0, weight=1)
+        popup.grid_rowconfigure(1, weight=1)
+
+        labelRaw = tk.Label(popup, text=resultRaw, bg='white', font=self.monoFont)
+        labelPretty = tk.Label(popup, text=resultPretty, bg='white', font=self.monoFont)
+
+        labelRaw.grid(sticky='ew', padx=10, pady=10)
+        labelPretty.grid(sticky='ew', padx=10, pady=10)
+
+        popup.update_idletasks()
+        width, height, posX, posY = ParseWindowGeometry(popup.geometry())
+        if width < 200:
+            width = 200
+        if height < 150:
+            height = 150
+        posX = (screenWidth-width)//2
+        posY = (screenHeight-height)//2
+        popup.geometry('{}x{}+{}+{}'.format(width, height, posX, posY))
+
+        popup.focus()
+        popup.grab_set()
+        self.wait_window(popup)
 
     def ShowHelp (self):
-        tkMsgBox.showinfo(('Sorry', 'Help not implemented yet.'))
+        pass
+
+
+def ParseWindowGeometry (string):
+    temp1 = string.split('+')
+    temp2 = temp1[0].split('x')
+    return int(temp2[0]), int(temp2[1]), int(temp1[1]), int(temp1[2]) # W,H,X,Y
+
+def CenterifyWindow (toplevelWindow):
+    width, height, posX, posY = ParseWindowGeometry(toplevelWindow.geometry())
+    posX = (screenWidth-width)//2
+    posY = (screenHeight-height)//2
+    toplevelWindow.geometry('+{}+{}'.format(posX, posY))
 
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.geometry('+600+300')
+    screenWidth = root.winfo_screenwidth()
+    screenHeight = root.winfo_screenheight()
     root.grid()
     root.grid_columnconfigure(0, weight=1)
     root.grid_rowconfigure(0, weight=1)
