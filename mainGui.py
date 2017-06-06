@@ -205,11 +205,12 @@ if __name__ == '__main__':
 
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
-    tempLabel = tk.Label(root)
+    tempLabel = tk.Label(root, text='Specimen')
     defaultWindowBgColour = tempLabel['background']
     defaultFont = tkFont.Font(font=tempLabel['font'])
     monoFont = tkFont.Font(font=defaultFont)
     monoFont['family'] = 'monospace'
+    tempLabel.destroy()
 
     root.title('Signal Flow Graph: Gain Solver')
     root.grid()
