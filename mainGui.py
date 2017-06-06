@@ -16,9 +16,11 @@ defaultWindowBgColour = None
 defaultFont = None
 monoFont = None
 
+appName = 'Signal Flow Graph: Gain Solver'
+
 
 class App (tk.Frame):
-    def __init__(self, root=None):
+    def __init__(self, root=None, splashWindow=None):
         super().__init__(root)
 
         self.root = root
@@ -87,6 +89,11 @@ class App (tk.Frame):
 
         self.update_idletasks()
         CenterifyWindow(self.root)
+
+        if splashWindow:
+            splashWindow.destroy()
+        self.root.deiconify()
+        self.update_idletasks()
 
     def RedrawMatrix (self):
         self.noOfNodes = int(self.noOfNodesTkStr.get().split()[0])
@@ -203,8 +210,23 @@ def CenterifyWindow (toplevelWindow):
 if __name__ == '__main__':
     root = tk.Tk()
 
+    root.withdraw()
+
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
+
+    splashWindow = tk.Toplevel(root)
+    splashWindow.withdraw()
+    splashWindow.grid_columnconfigure(0, weight=1)
+    tk.Label(splashWindow, text=appName+'\n\nLOADING...').grid(sticky='ew', padx=10, pady=15)
+    splashWindow.update()
+    splashWindow.deiconify()
+    CenterifyWindow(splashWindow)
+    splashWindow.title('')
+    splashWindow.focus()
+    splashWindow.grab_set()
+    splashWindow.update()
+
     tempLabel = tk.Label(root, text='Specimen')
     defaultWindowBgColour = tempLabel['background']
     defaultFont = tkFont.Font(font=tempLabel['font'])
@@ -212,10 +234,10 @@ if __name__ == '__main__':
     monoFont['family'] = 'monospace'
     tempLabel.destroy()
 
-    root.title('Signal Flow Graph: Gain Solver')
+    root.title(appName)
     root.grid()
     root.grid_columnconfigure(0, weight=1)
     root.grid_rowconfigure(0, weight=1)
 
-    app = App(root)
+    app = App(root, splashWindow)
     root.mainloop()
