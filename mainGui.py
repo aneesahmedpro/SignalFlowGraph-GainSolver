@@ -39,7 +39,7 @@ class App (tk.Frame):
         options = [str(i)+' Nodes' for i in range(1, maxNoOfNodes+1)]
         self.optionMenu = tk.OptionMenu(frameControls, self.noOfNodesTkStr, *options)
         self.optionMenu.grid(sticky='ew')
-        self.noOfNodesTkStr.set('Click here to select\n the Number of Nodes')
+        self.noOfNodesTkStr.set('Click here to select the Number of Nodes')
         optionMenuCallback = lambda internalName, index, triggerMode: self.RedrawMatrix()
         self.noOfNodesTkStr.trace('w', optionMenuCallback)
 
