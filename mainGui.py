@@ -48,13 +48,11 @@ class App (tk.Frame):
 
         tk.Label(frameControls).grid(pady=10)
 
-        self.buttonDraw = tk.Button(frameControls, text='Draw', command=self.DrawGraph, font=defaultFont)
         self.buttonSolve = tk.Button(frameControls, text='Solve', command=self.SolveGraph, font=defaultFont)
-        self.buttonHelp = tk.Button(frameControls, text='Help', command=self.ShowHelp, font=defaultFont)
+        self.buttonDraw = tk.Button(frameControls, text='Draw', command=self.DrawGraph, font=defaultFont)
 
-        self.buttonDraw.grid(sticky='ew')
         self.buttonSolve.grid(sticky='ew')
-        self.buttonHelp.grid(sticky='ew')
+        self.buttonDraw.grid(sticky='ew')
 
         tk.Label(frameControls).grid(pady=10)
 
