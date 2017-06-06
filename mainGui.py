@@ -2,6 +2,8 @@
 
 
 import tkinter as tk
+import tkinter.messagebox as tkMsgBox
+import tkinter.font as tkFont
 
 from graphSolveGain import SolveFinalGain
 from graphRender import RenderSignalFlowGraph
@@ -17,6 +19,8 @@ class App (tk.Frame):
         self.grid(sticky='nsew')
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
+
+        self.option_add('*Dialog.msg.font', 'monospace 15')
 
         frameMatrix = tk.Frame(self)
         frameControls = tk.Frame(self)
@@ -123,10 +127,10 @@ class App (tk.Frame):
         matrix = self.ExtractMatrix()
         matrix = self.PreprocessMatrix(matrix)
         resultRaw, resultPretty = SolveFinalGain(matrix)
-        print(resultPretty)
+        tkMsgBox.showinfo('Final Gain', resultPretty)
 
     def ShowHelp (self):
-        pass
+        tkMsgBox.showinfo(('Sorry', 'Help not implemented yet.'))
 
 
 if __name__ == '__main__':
