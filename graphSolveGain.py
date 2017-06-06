@@ -14,7 +14,7 @@ def SolveAllGains (matrix):
 def SolveFinalGain (matrix):
     n = len(matrix)
     finalGain = SolveAllGains(matrix)[0, n-1]
-    return finalGain, sp.pretty(finalGain, use_unicode=True)
+    return str(finalGain), sp.pretty(finalGain, use_unicode=True)
 
 
 if __name__ == '__main__':
