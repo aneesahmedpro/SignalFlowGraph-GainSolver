@@ -10,12 +10,6 @@ from graphRender import RenderSignalFlowGraph
 
 maxNoOfNodes = 20
 
-screenWidth = None
-screenHeight = None
-defaultWindowBgColour = None
-defaultFont = None
-monoFont = None
-
 appName = 'Signal Flow Graph: Gain Solver'
 
 
