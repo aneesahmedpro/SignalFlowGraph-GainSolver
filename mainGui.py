@@ -172,8 +172,10 @@ class App (tk.Frame):
         framePretty.grid_columnconfigure(0, weight=1)
         framePretty.grid_rowconfigure(0, weight=1)
 
-        labelRaw = tk.Label(frameRaw, text=resultRaw, bg='white', font=monoFont)
-        labelPretty = tk.Label(framePretty, text=resultPretty, bg='white', font=monoFont)
+        labelRaw = tk.Entry(frameRaw, font=monoFont, relief='flat', justify='center')
+        labelRaw.insert(0, resultRaw)
+        labelRaw.config(state='readonly', readonlybackground='white')
+        labelPretty = tk.Label(framePretty, text=resultPretty, font=monoFont, bg='white')
 
         labelRaw.grid(sticky='nsew', padx=10, pady=10)
         labelPretty.grid(sticky='nsew', padx=10, pady=10)
