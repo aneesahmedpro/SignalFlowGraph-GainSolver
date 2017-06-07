@@ -43,6 +43,7 @@ class App (tk.Frame):
         tempOptions = [str(i)+' Nodes' for i in range(1, maxNoOfNodes+1)]
         self.noOfNodesSelector = tk.OptionMenu(frameControls, self.noOfNodesTkStr, *tempOptions)
         self.noOfNodesSelector.config(font=defaultFont)
+        self.noOfNodesSelector['menu'].config(font=optionMenuItemFont)
         self.noOfNodesSelector.grid(sticky='ew')
         self.noOfNodesTkStr.set('Click here to select the Number of Nodes')
         noOfNodesSelectorCallback = lambda internalName, index, triggerMode: self.RedrawMatrix()
@@ -62,6 +63,7 @@ class App (tk.Frame):
         tempOptions = [str(i)+' pt' for i in range(6, 20, 2)]
         self.fontSizeSelector = tk.OptionMenu(frameControls, self.fontSizeTkStr, *tempOptions)
         self.fontSizeSelector.config(font=defaultFont)
+        self.fontSizeSelector['menu'].config(font=optionMenuItemFont)
         self.fontSizeSelector.grid(sticky='ew')
         self.fontSizeTkStr.set('Click here\n to select\n font size')
         fontSizeSelectorCallback = lambda internalName, index, triggerMode: self.ChangeFontSize()
@@ -194,6 +196,13 @@ class App (tk.Frame):
         defaultFont['size'] = fontSize
         monoFont['size'] = fontSize
 
+        if fontSize < 8:
+            optionMenuItemFont['size'] = 8
+        elif fontSize < 12:
+            optionMenuItemFont['size'] = fontSize
+        else:
+            optionMenuItemFont['size'] = 12
+
 
 def ParseWindowGeometry (string):
     temp1 = string.split('+')
@@ -229,9 +238,9 @@ if __name__ == '__main__':
 
     tempLabel = tk.Label(root, text='Specimen')
     defaultWindowBgColour = tempLabel['background']
-    defaultFont = tkFont.Font(font=tempLabel['font'])
-    monoFont = tkFont.Font(font=defaultFont)
-    monoFont['family'] = 'monospace'
+    defaultFont = tkFont.Font(font='TkDefaultFont')
+    monoFont = tkFont.Font(font='TkFixedFont')
+    optionMenuItemFont = tkFont.Font(font='TkDefaultFont')
     tempLabel.destroy()
 
     root.title(appName)
