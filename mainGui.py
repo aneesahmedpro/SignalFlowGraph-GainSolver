@@ -162,11 +162,21 @@ class App (tk.Frame):
         popup.grid_rowconfigure(0, weight=1)
         popup.grid_rowconfigure(1, weight=1)
 
-        labelRaw = tk.Label(popup, text=resultRaw, bg='white', font=monoFont)
-        labelPretty = tk.Label(popup, text=resultPretty, bg='white', font=monoFont)
+        frameRaw = tk.LabelFrame(popup, text='Raw Form')
+        framePretty = tk.LabelFrame(popup, text='Pretty Form')
 
-        labelRaw.grid(sticky='ew', padx=10, pady=10)
-        labelPretty.grid(sticky='ew', padx=10, pady=10)
+        frameRaw.grid(sticky='nsew', padx=10, pady=10)
+        frameRaw.grid_columnconfigure(0, weight=1)
+        frameRaw.grid_rowconfigure(0, weight=1)
+        framePretty.grid(sticky='nsew', padx=10, pady=10)
+        framePretty.grid_columnconfigure(0, weight=1)
+        framePretty.grid_rowconfigure(0, weight=1)
+
+        labelRaw = tk.Label(frameRaw, text=resultRaw, bg='white', font=monoFont)
+        labelPretty = tk.Label(framePretty, text=resultPretty, bg='white', font=monoFont)
+
+        labelRaw.grid(sticky='nsew', padx=10, pady=10)
+        labelPretty.grid(sticky='nsew', padx=10, pady=10)
 
         popup.update_idletasks()
         width, height, posX, posY = ParseWindowGeometry(popup.geometry())
