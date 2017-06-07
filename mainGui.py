@@ -188,9 +188,6 @@ class App (tk.Frame):
         popup.grab_set()
         self.wait_window(popup)
 
-    def ShowHelp (self):
-        pass
-
     def ChangeFontSize (self):
         fontSize = int(self.fontSizeTkStr.get().split()[0])
         defaultFont['size'] = fontSize
