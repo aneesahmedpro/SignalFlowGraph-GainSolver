@@ -11,7 +11,7 @@ The singal flow graph is entered as a transmittace matrix.
 
 1. Python 3
 
-2. SymPy (for Python 3)
+2. SymPy (for Python 3)  
    (Only **bare minimum SymPy is required**, no need to download any bloatware, suggested softwares or packages that might come with SymPy)
 
 3. Any modern Web Browser with Javascript capability enabled.
