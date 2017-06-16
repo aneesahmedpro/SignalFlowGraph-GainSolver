@@ -34,6 +34,7 @@ The singal flow graph is entered as a transmittace matrix.
 
 ## This project Thanks:
 
-+ Python (and Tkinter) project
++ Python project
++ Sympy project
 + Tk project
 + vis.js project
